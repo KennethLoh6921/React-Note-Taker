@@ -1,5 +1,6 @@
 import NoteCard from "./Notecard";
 import { useState, useEffect } from "react";
+import { FormControl, InputLabel, Select, MenuItem, Card, CardActions, CardContent, Button, Typography } from "@mui/material";
 
 function Home() {
     const [notes, setNotes] = useState([
@@ -59,8 +60,6 @@ function Home() {
         sortedNotes = filterNote.sort((a, b) => a.title.localeCompare(b.title));
     }
 
-    console.log(sortedNotes);
-
     return (
         <div className="container mt-3">
             <div className="row">
@@ -69,22 +68,42 @@ function Home() {
                 </div>
                 <div className="col-md-4">
                     <div className="d-flex gap-2">
-                        <select className="form-select" value={filter} onChange={(event) => setFilter(event.target.value)}>
+                        {/* <select className="form-select" value={filter} onChange={(event) => setFilter(event.target.value)}>
                             <option value="all">All Categories</option>
                             {categories.map((category, key) => (
-                                <option key={key} value={category}>
-                                    {category}
-                                </option>
+                                <option key={key} value={category}>{category}</option>
                             ))}
-                        </select>
-                        <select className="form-select" value={sort} onChange={(event) => setSort(event.target.value)}>
+                        </select> */}
+                        <FormControl fullWidth>
+                            <InputLabel id="demo-simple-select-label">Category</InputLabel>
+                            <Select labelId="demo-simple-select-label" id="demo-simple-select" value={filter} label="Category" onChange={(event) => setFilter(event.target.value)}>
+                                <MenuItem value={"all"}>All Categories</MenuItem>
+                                {categories.map((category, key) => (
+                                    <MenuItem key={key} value={category}>
+                                        {category}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                        {/* <select className="form-select" value={sort} onChange={(event) => setSort(event.target.value)}>
                             <option value="none">Sort By</option>
                             {sortingOption.map((option, key) => (
                                 <option key={key} value={option}>
                                     {option}
                                 </option>
                             ))}
-                        </select>
+                        </select> */}
+                        <FormControl fullWidth>
+                            <InputLabel id="demo-simple-select-label">Sort By</InputLabel>
+                            <Select labelId="demo-simple-select-label" id="demo-simple-select" value={sort} label="Sort By" onChange={(event) => setSort(event.target.value)}>
+                                <MenuItem value={"none"}>Sort By</MenuItem>
+                                {sortingOption.map((option, key) => (
+                                    <MenuItem key={key} value={option}>
+                                        {option}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
                     </div>
                 </div>
             </div>

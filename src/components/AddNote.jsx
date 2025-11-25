@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
+import Editor from "react-simple-wysiwyg";
+import { TextField, FormControl, InputLabel, Select, MenuItem, Box, Card, CardContent, Typography, Button } from "@mui/material";
 
 const AddNote = ({}) => {
     const [title, setTitle] = useState("");
@@ -42,49 +44,41 @@ const AddNote = ({}) => {
     };
 
     return (
-        <div className="container mt-5">
-            <div className="row justify-content-center">
-                <div className="col-md-8 col-lg-6">
-                    <div className="card shadow">
-                        <div className="card-body">
-                            <h2 className="card-title text-center mb-4">Add New Note</h2>
-                            <form onSubmit={handleSubmit}>
-                                <div className="mb-3">
-                                    <label htmlFor="noteTitle" className="form-label">
-                                        Note Title
-                                    </label>
-                                    <input type="text" className="form-control" id="noteTitle" placeholder="Enter note title" value={title} onChange={(e) => setTitle(e.target.value)} />
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="noteCategory" className="form-label">
-                                        Category
-                                    </label>
-                                    <select className="form-control" id="noteCategory" value={category} onChange={(e) => setCategory(e.target.value)}>
-                                        <option value="">Select a category</option>
-                                        {categoryChoices.map((cat, index) => (
-                                            <option key={index} value={cat}>
-                                                {cat}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="noteContent" className="form-label">
-                                        Note Content
-                                    </label>
-                                    <textarea className="form-control" id="noteContent" placeholder="Enter note content" value={content} onChange={(e) => setContent(e.target.value)} rows="10" />
-                                </div>
-                                <div className="d-grid">
-                                    <button type="submit" className="btn btn-primary">
-                                        Add Note
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <Card sx={{ maxWidth: 600, mx: "auto", mt: 5, boxShadow: 3 }}>
+            <CardContent>
+                <Typography variant="h5" align="center" sx={{ mb: 3 }}>
+                    Add New Note
+                </Typography>
+
+                <form onSubmit={handleSubmit}>
+                    <Box sx={{ mb: 3 }}>
+                        <TextField fullWidth id="noteTitle" label="Enter note title" variant="outlined" value={title} onChange={(e) => setTitle(e.target.value)} />
+                    </Box>
+
+                    <Box sx={{ mb: 3 }}>
+                        <FormControl fullWidth>
+                            <InputLabel id="category-label">Select a category</InputLabel>
+                            <Select labelId="category-label" id="noteCategory" value={category} label="Select a category" onChange={(event) => setCategory(event.target.value)}>
+                                <MenuItem value={"all"}>All Categories</MenuItem>
+                                {categoryChoices.map((cat, key) => (
+                                    <MenuItem key={key} value={cat}>
+                                        {cat}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    </Box>
+
+                    <Box sx={{ mb: 3 }}>
+                        <Editor containerProps={{ style: { height: "300px" } }} value={content} onChange={(e) => setContent(e.target.value)} />
+                    </Box>
+
+                    <Button type="submit" variant="contained" fullWidth>
+                        Add Note
+                    </Button>
+                </form>
+            </CardContent>
+        </Card>
     );
 };
 

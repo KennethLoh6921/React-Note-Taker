@@ -5,8 +5,8 @@ import Home from "./components/Home";
 import AddNote from "./components/AddNote";
 import Categories from "./components/categories";
 import EditNote from "./components/EditNote";
+import { Bootstrap } from "react-bootstrap-icons";
 import "bootstrap/dist/css/bootstrap.min.css";
-
 function App() {
     return (
         <BrowserRouter>

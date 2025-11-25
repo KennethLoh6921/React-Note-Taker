@@ -1,4 +1,7 @@
 import { useNavigate } from "react-router";
+import { Card, CardContent, Typography, Chip, Button, Box } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const NoteCard = ({ noteId, noteTitle, noteCategory, noteDate }) => {
     const navigate = useNavigate();
@@ -7,25 +10,30 @@ const NoteCard = ({ noteId, noteTitle, noteCategory, noteDate }) => {
         navigate(`/edit-note/${noteId}`);
     };
     return (
-        <div className="col-md-4 card mx-auto my-3">
-            <div className="card-body">
-                <h3 className="card-title">{noteTitle}</h3>
+        <div className="col-md-4 mx-auto my-3">
+            <Card sx={{ maxWidth: 400, mx: "auto", my: 3, boxShadow: 3 }}>
+                <CardContent>
+                    <Typography variant="h5" sx={{ mb: 1 }}>
+                        {noteTitle}
+                    </Typography>
 
-                <p className="badge bg-dark rounded-pill">{noteCategory}</p>
+                    <Chip label={noteCategory} color="default" variant="filled" sx={{ mb: 1 }} />
 
-                <p className="text-gray fs-6">{noteDate}</p>
+                    <Typography variant="body2" sx={{ color: "text.secondary", mb: 2 }}>
+                        {noteDate}
+                    </Typography>
 
-                <div className="d-flex gap-2">
-                    <button className="btn btn-link text-primary p-0 text-decoration-none" onClick={navigateToEdit}>
-                        <i className="bi bi-pencil"></i>
-                        Edit
-                    </button>
-                    <button className="btn btn-link text-danger p-0 text-decoration-none">
-                        <i className="bi bi-trash"></i>
-                        Delete
-                    </button>
-                </div>
-            </div>
+                    <Box sx={{ display: "flex", gap: 2 }}>
+                        <Button variant="text" color="primary" startIcon={<EditIcon />} onClick={navigateToEdit} sx={{ p: 0, minWidth: "auto" }}>
+                            Edit
+                        </Button>
+
+                        <Button variant="text" color="error" startIcon={<DeleteIcon />} sx={{ p: 0, minWidth: "auto" }}>
+                            Delete
+                        </Button>
+                    </Box>
+                </CardContent>
+            </Card>
         </div>
     );
 };
